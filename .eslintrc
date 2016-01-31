@@ -1,0 +1,13 @@
+{
+  "extends": "/home/landry/.eslintrc",
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "generators": true,
+    "forOf": true,
+    "blockBindings": true
+  }
+}

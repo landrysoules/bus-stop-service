@@ -1,0 +1,26 @@
+{
+  "name": "bus-stop-service",
+  "version": "0.0.1",
+  "description": "Service powering bus-stop mobile app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha spec --reporter spec --require ./spec/helpers/chai.js"
+  },
+  "author": "Landry Soules",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/landrysoules/bus-stop-service/issues"
+  },
+  "homepage": "https://github.com/landrysoules/bus-stop-service#readme",
+  "dependencies": {
+    "bunyan": "^1.5.1",
+    "express": "^4.13.4",
+    "needle": "^0.11.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "really-need": "^1.9.0",
+    "supertest": "^1.1.0"
+  }
+}
