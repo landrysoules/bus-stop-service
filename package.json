@@ -18,17 +18,22 @@
   "homepage": "https://github.com/landrysoules/bus-stop-service#readme",
   "dependencies": {
     "bunyan": "^1.5.1",
+    "cors": "^2.7.1",
     "dotenv-safe": "^2.2.0",
     "express": "^4.13.4",
     "express-errorhandler": "^1.6.0",
     "mongodb": "^2.1.7",
     "mongojs": "^2.3.0",
-    "needle": "^0.11.0"
+    "needle": "^0.11.0",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
     "really-need": "^1.9.0",
+    "rewire": "^2.5.1",
+    "sinon": "^1.17.3",
+    "superagent": "^1.8.0",
     "supertest": "^1.1.0"
   }
 }

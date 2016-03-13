@@ -1,52 +1,44 @@
-'use strict'
+  'use strict'
 
-// var assert = require('chai').assert
-require('./helpers/chai')
-var request = require('supertest')
-require = require('really-need')
-
-describe('Service', function() {
-  var server
-
-  beforeEach(function() {
-    server = require('../lib/server', {
-      bustCache: true
-    })
+  var bunyan = require('bunyan')
+  var log = bunyan.createLogger({
+    src: true,
+    name: 'bus-stop-server',
+    level: process.env.LOG_LEVEL
   })
 
-  afterEach(function(done) {
-    server.close(done)
-  })
+  // var assert = require('chai').assert
+  require('./helpers/chai')
+  var sinon = require('sinon')
+  var rewire = require('rewire')
+  var service = rewire('../lib/bus.service')
 
-  describe('Request lines', function() {
-    it('Request all lines', function(done) {
-      request(server)
-        .post('/lines')
-        .set('Content-Type', 'application/json')
-        .send([])
-        .end(function(err, res) {
-          if (err) {
-            return done(err)
+  describe('Service', function() {
+
+    describe('Check hashcode', function() {
+      it('When hashcode differs, server returns the relevant lines', function() {
+        var mock = {
+            lines: {
+              find: function() {
+                return ([])
+              }
+            }
           }
-          expect(res.status).to.equal(200)
-          expect(res.body).to.equal([{
-            pop: 'pop'
-          }])
-          done()
-        })
-    })
-    it('Request only some lines', function(done) {
-      request(server)
-        .post('/lines')
-        .set('Content-Type', 'application/json')
-        .send([{
-          _id: 'B206',
-          code: '1234'
-        }, {
-          _id: 'B207',
-          code: '5678'
-        }])
-        .expect(200, done);
+        var find = sinon.stub(mock.lines, 'find')
+        find.yields(null, [{'_id': 'b1', code: '1234'}, {'_id': 'b2', code: '5678'}])
+        service.__set__('db', mock)
+        service
+          .checkHashCodes({'b1': '1111','b2': '2222'})
+          .then(function(codes) {
+            log.info(codes)
+          })
+          .catch(function(err) {
+            log.error(err)
+          })
+      })
+
+      it('When nothing differs, server returns empty array')
+
+      it('When parameter is en empty object, server returns all lines')
     })
   })
-})
