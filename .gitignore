@@ -34,3 +34,5 @@ node_modules
 chr
 
 .env
+
+TIPS.md
