@@ -1,4 +1,5 @@
 'use strict'
+
 var chai = require('chai')
 chai.use(require('chai-shallow-deep-equal'))
 chai.use(require('chai-as-promised'));
