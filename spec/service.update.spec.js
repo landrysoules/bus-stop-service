@@ -3,17 +3,16 @@
   var bunyan = require('bunyan')
   var log = bunyan.createLogger({
     src: true,
-    name: 'bus-stop-server',
+    name: 'bus-stop-service',
     level: process.env.LOG_LEVEL
   })
 
-  // var assert = require('chai').assert
   require('./helpers/chai')
   var sinon = require('sinon')
   var rewire = require('rewire')
   var service = rewire('../lib/bus.service')
 
-  describe('Service', function() {
+  describe('Service - Update process', function() {
     var mock, find
     beforeEach(function() {
       mock = {
