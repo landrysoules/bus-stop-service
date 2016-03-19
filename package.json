@@ -18,6 +18,7 @@
   "homepage": "https://github.com/landrysoules/bus-stop-service#readme",
   "dependencies": {
     "bunyan": "^1.5.1",
+    "cheerio": "^0.20.0",
     "cors": "^2.7.1",
     "dotenv-safe": "^2.2.0",
     "express": "^4.13.4",
@@ -26,7 +27,8 @@
     "mongodb": "^2.1.7",
     "mongojs": "^2.3.0",
     "needle": "^0.11.0",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "request": "^2.69.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
