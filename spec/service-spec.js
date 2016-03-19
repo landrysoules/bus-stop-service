@@ -68,5 +68,15 @@
           code: '5678'
         }])
       })
+
+      it('When parameter is null, server returns all lines', function() {
+        return expect(service.checkHashCodes(null)).to.eventually.shallowDeepEqual([{
+          '_id': 'b1',
+          code: '1234'
+        }, {
+          '_id': 'b2',
+          code: '5678'
+        }])
+      })
     })
   })

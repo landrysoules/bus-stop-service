@@ -1,6 +1,8 @@
 # bus-stop-service
-Service powering bus-stop mobile app.
 
+[![Build Status](https://semaphoreci.com/api/v1/landry/bus-stop-service/branches/master/badge.svg)](https://semaphoreci.com/landry/bus-stop-service)
+
+Service powering bus-stop mobile app.
 
 ## Contributing
 
