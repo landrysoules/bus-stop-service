@@ -1,57 +1,48 @@
   'use strict'
 
   var bunyan = require('bunyan')
-  var log = bunyan.createLogger({
-    src: true,
-    name: 'bus-stop-service',
-    level: process.env.LOG_LEVEL
-  })
+  require('../lib/helper')
 
   require('./helpers/chai')
   var sinon = require('sinon')
   var rewire = require('rewire')
-  var service = rewire('../lib/bus.request.service')
+  var service = rewire('../lib/bus.parse.service')
+  var request = require('request')
+  var fs = require('fs')
 
-  describe('Service - Request building process', function() {
+  describe('Service - Parse results from website', function() {
     var mock, find
     beforeEach(function() {})
 
     afterEach(function() {})
 
-    describe('Check received parameters', function() {
-      it('Parameters can not be empty', function() {
-        expect(service.checkParameters()).to.be.false
-        expect(service.checkParameters({})).to.be.false
+    describe('Site response is ok', function() {
+      it('Parse expected http', function(done) {
+        var get = sinon.stub(request, 'get')
+        fs.readFile(__dirname + '/response.ok.html', 'utf8', function(err, contents) {
+          get.yields(null, null, contents)
+          if (err) {
+            done(err)
+          } else {
+            log.debug(contents);
+            service.sendRequest('dummyRequest', function(err, previsions) {
+              if (err) {
+                done(err)
+              }
+              expect(previsions).to.shallowDeepEqual({
+                previsions: [{
+                  station: 'Nogent-Sur-Marne RER',
+                  time: '4 mn'
+                }, {
+                  station: 'Nogent-Sur-Marne RER',
+                  time: '19 mn'
+                }]
+              })
+              done()
+            })
+          }
+        })
       })
-      it('Parameters must be a well formed object', function() {
-        expect(service.checkParameters({
-          station: '1'
-        })).to.be.false
-        expect(service.checkParameters({
-          line: '',
-          station: null,
-          direction: null
-        })).to.be.false
-        expect(service.checkParameters({
-          line: '',
-          station: '',
-          direction: ''
-        })).to.be.false
-        expect(service.checkParameters({
-          line: 'a',
-          station: 'b',
-          direction: 'c'
-        })).to.be.true
-      })
-    })
 
-    describe('Build request', function() {
-      it('Generate correct url', function() {
-        expect(service.buildRequest({
-          line: 'B120',
-          station: '120_134_135',
-          direction: 'R'
-        })).to.equal(`${process.env.URL_DAY_BUS}B120/120_134_135/R`)
-      })
     })
   })
